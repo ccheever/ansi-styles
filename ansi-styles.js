@@ -36,3 +36,31 @@ Object.keys(codes).forEach(function (key) {
 	style.open = '\x1b[' + val[0] + 'm';
 	style.close = '\x1b[' + val[1] + 'm';
 });
+
+// 256 Color support
+// See http://bitmote.com/index.php?post/2012/11/19/Using-ANSI-Color-Codes-to-Colorize-Your-Bash-Prompt-on-Linux#256%20%288-bit%29%20Colors
+styles.foreground = function (number) {
+	return {
+		open: '\u001b[38;5;' + number + 'm',
+		close: '\u001b[' + 39 + 'm'
+	};
+};
+
+styles.background = function (number) {
+	return {
+		open: '\u001b[48;5;' + number + 'm',
+		close: '\u001b[' + 49 + 'm',
+	};
+};
+
+styles.fg = styles.foreground;
+styles.bg = styles.background;
+
+styles.fgbg = function (foregroundNumber, backgroundNumber) {
+	return {
+		open: '\u001b[38;5;' + foregroundNumber + ';48;5;' + backgroundNumber + 'm',
+		close: '\u001b[39;49m',
+	};
+};
+
+
